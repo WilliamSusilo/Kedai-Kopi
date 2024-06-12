@@ -16,12 +16,138 @@ $kode_produk = "";
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kedai Kopi</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #cbd5e0;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        table th, table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #cbd5e0;
+        }
+
+        form {
+            margin-top: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 98%;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid #cbd5e0;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #4a5568;
+        }
+
+        input[type="submit"] {
+            background-color: #2d3748;
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1a202c;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #2d3748;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+            display: block;
+            width: 96%;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #1a202c;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 600px) {
+            .container {
+                margin: 20px auto;
+                padding: 10px;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            table th, table td {
+                padding: 0.5rem;
+            }
+
+            input[type="submit"] {
+                padding: 0.4rem 0.8rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -77,4 +203,5 @@ $kode_produk = "";
         <a href="javascript:history.back()" class="back-button">Back</a>
     </div>
 </body>
+
 </html>
