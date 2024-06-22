@@ -1,5 +1,16 @@
 <?php
 require_once 'functions.php';
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +121,7 @@ require_once 'functions.php';
             <?php
             // Query untuk mengambil data permintaan barang yang belum diproses (belum ada di tabel expend)
             $q = $db->query("SELECT * FROM demand 
-            WHERE kode_produk NOT IN (SELECT kode_produk FROM expend)");
+            WHERE transaksi_permintaan_ID NOT IN (SELECT transaksi_pengeluaran_ID FROM expend)");
             while($dt = $q->fetch_assoc()) :
             ?>
             <tr>

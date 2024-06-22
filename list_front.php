@@ -1,5 +1,15 @@
 <?php
 require_once 'functions.php';
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +18,7 @@ require_once 'functions.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kedai Kopi - List Gudang</title>
+    <title>Kedai Kopi - List Front End</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         /* Additional Custom Styles */
@@ -80,12 +90,13 @@ require_once 'functions.php';
 
 <body>
     <div class="container">
-        <h1>List Gudang</h1>
+        <h1>List Front End</h1>
+        <a class="button-link" href="add_front.php">Add Front Office Worker</a>
 
         <!-- Menampilkan Data dari Database -->
         <table>
             <tr>
-                <th>ID Gudang</th>
+                <th>ID Front Office</th>
                 <th>Nama</th>
                 <th>Jabatan</th>
                 <th>Alamat</th>
@@ -93,12 +104,12 @@ require_once 'functions.php';
             </tr>
             <?php
             // Menampilkan Data
-            $q = $db->query("SELECT * FROM gudang");
+            $q = $db->query("SELECT * FROM front_office");
             while ($dt = $q->fetch_assoc()) :
             ?>
                 <tr>
-                    <td><?= $dt['id_pegawai_gudang'] ?></td>
-                    <td><?= $dt['nama_pegawai_gudang'] ?></td>
+                    <td><?= $dt['id_front_office'] ?></td>
+                    <td><?= $dt['nama'] ?></td>
                     <td><?= $dt['jabatan'] ?></td>
                     <td><?= $dt['alamat'] ?></td>
                     <td><?= $dt['nomor_telepon'] ?></td>

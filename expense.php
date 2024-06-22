@@ -1,4 +1,14 @@
 <?php
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
 include("functions.php");
 
 if (isset($_GET['transaksi_permintaan_ID'])) {
@@ -12,6 +22,39 @@ if (isset($_GET['transaksi_permintaan_ID'])) {
 $jumlah_produk_diminta = "";
 $kode_produk = "";
 
+?>
+
+<?php
+include("functions.php");
+
+if(isset($_POST['add_exp'])){
+
+    $transaksi_permintaan_ID = $_POST['transaksi_permintaan_ID'];
+    $tanggal_pengeluaran = htmlspecialchars($_POST['tanggal_pengeluaran']);
+    $jumlah_produk_keluar = htmlspecialchars($_POST['jumlah_produk_keluar']);
+    $id_pegawai_gudang = htmlspecialchars($_POST['id_pegawai_gudang']);
+    $kode_produk = htmlspecialchars($_POST['kode_produk']);
+
+    $sql = "INSERT INTO expend (transaksi_pengeluaran_ID, tanggal_pengeluaran, jumlah_produk_keluar, id_pegawai_gudang, kode_produk) VALUES ($transaksi_permintaan_ID ,'$tanggal_pengeluaran', '$jumlah_produk_keluar', '$id_pegawai_gudang', '$kode_produk')";
+    $query = mysqli_query($db, $sql);
+
+    if( $query ) {
+        $sql_update = "UPDATE produk SET jumlah_produk = jumlah_produk + '$jumlah_produk_keluar' WHERE kode_produk = '$kode_produk'";
+        $query_update = mysqli_query($db, $sql_update);
+
+        if ($query_update) {
+            header('Location: main_warehouse.php?status=sukses');
+            exit;
+        } else {
+            header('Location: main_warehouse.php?status=gagal_update');
+            exit;
+        }
+    } else {
+        header('Location: main_warehouse.php?status=gagal_insert');
+        exit;
+    }
+    
+} 
 ?>
 
 <!DOCTYPE html>
@@ -108,8 +151,12 @@ $kode_produk = "";
             background-color: #1a202c;
         }
 
+        .back{
+            display: flex;
+            justify-content: center;
+        }
+
         .back-button {
-            display: inline-block;
             padding: 0.5rem 1rem;
             background-color: #2d3748;
             color: #ffffff;
@@ -117,8 +164,7 @@ $kode_produk = "";
             border-radius: 0.25rem;
             transition: background-color 0.3s ease;
             margin-top: 1rem;
-            display: block;
-            width: 96%;
+            width: 5%;
             text-align: center;
         }
 
@@ -173,8 +219,10 @@ $kode_produk = "";
             <?php endforeach; ?>
         </table>
 
-        <form action="expense_process.php" method="POST">
+        <form action="" method="POST">
             <fieldset>
+                <input type="hidden" name="transaksi_permintaan_ID" value="<?= $transaksi_permintaan_ID ?>" />
+                <input type="hidden" name="id_pegawai_gudang" value="<?= $_SESSION['username'] ?>" />
                 <p>
                     <label for="tanggal_pengeluaran">Tanggal Pengeluaran: </label>
                     <input type="date" name="tanggal_pengeluaran" placeholder="Tanggal Pengeluaran" />
@@ -187,7 +235,7 @@ $kode_produk = "";
                 </p>
                 <p>
                     <label for="id_pegawai_gudang">ID Gudang: </label>
-                    <input type="text" name="id_pegawai_gudang" placeholder="ID Gudang" />
+                    <input type="text" value="<?= $_SESSION['username'] ?>" disabled />
                 </p>
                 <p>
                     <label for="kode_produk">Kode Produk: </label>
@@ -200,7 +248,9 @@ $kode_produk = "";
             </fieldset>
         </form>
         <!-- Tombol Back -->
-        <a href="javascript:history.back()" class="back-button">Back</a>
+        <div class="back">
+            <a href="javascript:history.back()" class="back-button">Back</a>
+        </div>
     </div>
 </body>
 

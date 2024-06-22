@@ -1,3 +1,16 @@
+<?php 
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,26 +83,16 @@
         <!-- Untuk Front Office -->
         <nav class="mb-4">
             <ul>
-                <li><a href="list_produk.php" class="text-gray-700 hover:text-gray-900">Informasi Produk</a></li>
-                <li><a href="list_frontend.php" class="text-gray-700 hover:text-gray-900">List Data Orang Front Office</a></li>
+                <li><a href="list_product.php" class="text-gray-700 hover:text-gray-900">Data Produk</a></li>
+                <li><a href="list_front.php" class="text-gray-700 hover:text-gray-900">Data Tenaga Kerja Front Office</a></li>
                 <li><a href="request.php" class="text-gray-700 hover:text-gray-900">Aksi Permintaan Barang</a></li>
                 <li><a href="list_request.php" class="text-gray-700 hover:text-gray-900">History Permintaan Barang</a></li>
             </ul>
         </nav>
         <hr class="my-4">
 
-        <!-- Untuk Gudang -->
-        <nav class="mb-4">
-            <ul>
-                <li><a href="list_produk.php" class="text-gray-700 hover:text-gray-900">Informasi Produk</a></li>
-                <li><a href="list_gudang.php" class="text-gray-700 hover:text-gray-900">List Data Orang Gudang</a></li>
-                <li><a href="action_request.php" class="text-gray-700 hover:text-gray-900">Aksi Pengeluaran Barang</a></li>
-                <li><a href="list_expense.php" class="text-gray-700 hover:text-gray-900">History Pengeluaran Barang</a></li>
-            </ul>
-        </nav>
-
         <!-- Tombol Back -->
-        <a href="javascript:history.back()" class="back-button">Back</a>
+        <a href="logout.php" class="back-button">Logout</a>
     </div>
 </body>
 

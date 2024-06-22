@@ -1,3 +1,45 @@
+<?php 
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
+?>
+
+<?php
+
+include("functions.php");
+
+// Mengecek Tombol Daftar Sudah Diklik atau Belum
+if(isset($_POST['add_req'])){
+
+    // Mengambil Data dari Formulir
+    $tanggal_permintaan = htmlspecialchars($_POST['tanggal_permintaan']);
+    $jumlah_produk_diminta = htmlspecialchars($_POST['jumlah_produk_diminta']);
+    $id_front_office = htmlspecialchars($_POST['id_front_office']);
+    $kode_produk = htmlspecialchars($_POST['kode_produk']);
+
+    // Membuat Query
+    $sql = "INSERT INTO demand (tanggal_permintaan, jumlah_produk_diminta, id_front_office, kode_produk) VALUE ('$tanggal_permintaan', '$jumlah_produk_diminta', '$id_front_office', '$kode_produk')";
+    $query = mysqli_query($db, $sql);
+
+    // Mengecek Apakah Query Berhasil Disimpan
+    if( $query ) {
+        // Apabila Berhasil Dialihkan ke Halaman index.php dengan Status = Sukses
+        header('Location: index.php?status=sukses');
+    } else {
+        // Apabila Gagal Dialihkan ke Halaman index.php dengan Status = Gagal
+        header('Location: index.php?status=gagal');
+    }
+    
+} 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,8 +133,12 @@
             background-color: #1a202c;
         }
 
+        .back{
+            display: flex;
+            justify-content: center;
+        }
+
         .back-button {
-            display: inline-block;
             padding: 0.5rem 1rem;
             background-color: #2d3748;
             color: #ffffff;
@@ -100,7 +146,7 @@
             border-radius: 0.25rem;
             transition: background-color 0.3s ease;
             margin-top: 1rem;
-            display: block;
+            width: 5%;
             text-align: center;
         }
 
@@ -117,8 +163,9 @@
             <hr>
         </header>
 
-        <form action="request_process.php" method="POST">
+        <form action="" method="POST">
             <fieldset>
+                <input type="hidden" name="id_front_office" value="<?= $_SESSION['username'] ?>" />
                 <p>
                     <label for="tanggal_permintaan">Tanggal Permintaan: </label>
                     <input type="date" name="tanggal_permintaan" placeholder="Tanggal Permintaan" />
@@ -129,7 +176,7 @@
                 </p>
                 <p>
                     <label for="id_front_office">ID Front Office: </label>
-                    <input type="text" name="id_front_office" placeholder="ID Front Office" />
+                    <input type="text" value="<?= $_SESSION['username'] ?>" disabled />
                 </p>
                 <p>
                     <label for="kode_produk">Kode Produk: </label>
@@ -153,7 +200,9 @@
             </fieldset>
         </form>
         <!-- Tombol Back -->
-        <a href="javascript:history.back()" class="back-button">Back</a>
+        <div class="back">
+            <a href="javascript:history.back()" class="back-button">Back</a>
+        </div>
     </div>
 </body>
 

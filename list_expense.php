@@ -1,5 +1,15 @@
 <?php
 require_once 'functions.php';
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>

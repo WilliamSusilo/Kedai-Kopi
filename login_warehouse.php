@@ -5,7 +5,7 @@ session_start();
 
 // checking session
 if (isset($_SESSION["login"])){
-  header("Location: main.php");
+  header("Location: main_warehouse.php");
   exit;
 }
 
@@ -19,19 +19,18 @@ if ( isset($_POST["login"]) ) {
   $loginUsername = $_POST["loginUsername"];
   $loginPassword = $_POST["loginPassword"];
 
-  $user = mysqli_query($db, "SELECT * FROM front_office WHERE id_front_office = '$loginUsername'");
-  // $admin = mysqli_query($db, "SELECT * FROM front_office WHERE id_pegawai_gudang = '$loginUsername'");
+  $admin = mysqli_query($db, "SELECT * FROM warehouse WHERE id_pegawai_gudang = '$loginUsername'");
 
-  if ( mysqli_num_rows($user) === 1 ) {
+  if ( mysqli_num_rows($admin) === 1 ) {
 
-    $row = mysqli_fetch_assoc($user);
+    $row = mysqli_fetch_assoc($admin);
 
     if( $loginPassword === $row['pass'] ){
 
       $_SESSION["login"] = true;
       $_SESSION["username"] = $loginUsername;
 
-      header("Location: main.php");
+      header("Location: main_warehouse.php");
       exit;
     }
   }
@@ -89,7 +88,7 @@ if ( isset($_POST["login"]) ) {
       <form id="loginForm" class="" action="" method="post">
         <div class="mb-4">
           <label for="loginUsername" class="block text-gray-700"
-            >ID Front Office</label
+            >ID Pegawai Gudang</label
           >
           <input
             type="text"
@@ -109,13 +108,13 @@ if ( isset($_POST["login"]) ) {
             class="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:border-blue-500"
           />
         </div>
-        <a href="forgot_password/form.php" class="text-blue-500 font-light block mb-5 text-end">Lupa Password</a>
+        <a href="forgot_password/form_warehouse.php" class="text-blue-500 font-light block mb-5 text-end">Lupa Password</a>
         <?php if( isset($error) ) : ?>
         <p style="color: red; font-style: italic;">incorrect username or password</p>
         <?php endif ?>
         <button
           type="submit" name="login"
-          class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+          class="bg-green-600 text-center hover:bg-green-500 text-white py-2 px-4 rounded-md focus:outline-none focus:bg-green-500"
         >
           Login
         </button>

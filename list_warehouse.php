@@ -1,5 +1,15 @@
 <?php
 require_once 'functions.php';
+
+// starting session
+session_start();
+
+// checking session
+if (!isset($_SESSION["login"])){
+  header("Location: index.php");
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +18,7 @@ require_once 'functions.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kedai Kopi - List Produk</title>
+    <title>Kedai Kopi - List Gudang</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         /* Additional Custom Styles */
@@ -80,34 +90,29 @@ require_once 'functions.php';
 
 <body>
     <div class="container">
-        <h1>List Produk</h1>
+        <h1>List Gudang</h1>
+        <a class="button-link" href="add_warehouse.php">Add Warehouse Worker</a>
 
         <!-- Menampilkan Data dari Database -->
         <table>
             <tr>
-                <th>Kode Produk</th>
-                <th>Nama Produk</th>
-                <th>Jenis Produk</th>
-                <th>Bentuk Produk</th>
-                <th>Satuan Produk</th>
-                <th>Merk</th>
-                <th>Jumlah Produk</th>
-                <th>Tingkat Kafein</th>
+                <th>ID Gudang</th>
+                <th>Nama</th>
+                <th>Jabatan</th>
+                <th>Alamat</th>
+                <th>Telepon</th>
             </tr>
             <?php
             // Menampilkan Data
-            $q = $db->query("SELECT * FROM produk");
+            $q = $db->query("SELECT * FROM warehouse");
             while ($dt = $q->fetch_assoc()) :
             ?>
                 <tr>
-                    <td><?= $dt['kode_produk'] ?></td>
-                    <td><?= $dt['nama_produk'] ?></td>
-                    <td><?= $dt['jenis_produk'] ?></td>
-                    <td><?= $dt['bentuk_produk'] ?></td>
-                    <td><?= $dt['satuan_produk'] ?></td>
-                    <td><?= $dt['merk'] ?></td>
-                    <td><?= $dt['jumlah_produk'] ?></td>
-                    <td><?= $dt['tingkat_kafein'] ?></td>
+                    <td><?= $dt['id_pegawai_gudang'] ?></td>
+                    <td><?= $dt['nama_pegawai_gudang'] ?></td>
+                    <td><?= $dt['jabatan'] ?></td>
+                    <td><?= $dt['alamat'] ?></td>
+                    <td><?= $dt['nomor_telepon'] ?></td>
                 </tr>
             <?php endwhile; ?>
         </table>
