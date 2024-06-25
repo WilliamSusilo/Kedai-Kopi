@@ -90,7 +90,7 @@ if (!isset($_SESSION["login"])){
 
 <body>
     <div class="container">
-        <h1>List Front End</h1>
+        <h1>List Front Office</h1>
         <a class="button-link" href="add_front.php">Add Front Office Worker</a>
 
         <!-- Menampilkan Data dari Database -->
@@ -101,6 +101,7 @@ if (!isset($_SESSION["login"])){
                 <th>Jabatan</th>
                 <th>Alamat</th>
                 <th>Telepon</th>
+                <th colspan="2">Aksi</th>
             </tr>
             <?php
             // Menampilkan Data
@@ -113,6 +114,8 @@ if (!isset($_SESSION["login"])){
                     <td><?= $dt['jabatan'] ?></td>
                     <td><?= $dt['alamat'] ?></td>
                     <td><?= $dt['nomor_telepon'] ?></td>
+                    <td><a class="update" href="update_front.php?id_front_office=<?= $row['id_front_office'] ?>">Ubah</a></td>
+                    <td><a class="delete" href="delete_front.php?id_front_office=<?= $row['id_front_office'] ?>" onclick="return confirm('Anda Yakin akan Menghapus Data Ini?')">Hapus</a></td>
                 </tr>
             <?php endwhile; ?>
         </table>

@@ -71,7 +71,12 @@ if(isset($_POST['tambah'])){
                 </p>
                 <p>
                     <label for="jabatan">Jabatan: </label>
-                    <input type="text" name="jabatan" id="jabatan" placeholder="Jabatan" />
+                    <select name="jabatan" id="jabatan">
+                        <option value="" disabled selected>Pilih</option>
+                        <option value="Barista">Barista</option>
+                        <option value="Manager Operasional">Manager Operasional</option>
+                        <option value="Shift Supervisor">Shift Supervisor</option>
+                    </select>
                 </p>
                 <p>
                     <label for="alamat">Alamat: </label>
